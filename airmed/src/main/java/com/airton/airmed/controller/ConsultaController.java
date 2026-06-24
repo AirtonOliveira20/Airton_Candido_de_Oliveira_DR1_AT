@@ -21,24 +21,9 @@ public class ConsultaController {
         this.consultaService = consultaService;
     }
 
-    @GetMapping
-    public ResponseEntity<Object> listarConsultas() {
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(consultaService.listarConsultas());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> buscarConsultaPorId(
-            @PathVariable UUID id) {
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(consultaService.buscarConsultaPorId(id));
-    }
 
     @PostMapping
-    public ResponseEntity<Object> cadastrarConsulta(
+    public ResponseEntity<UUID> cadastrarConsulta(
             @RequestBody ConsultaDTO dto) {
 
         UUID id = consultaService.cadastrarConsulta(dto);
@@ -46,24 +31,5 @@ public class ConsultaController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(id);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarConsulta(
-            @PathVariable UUID id,
-            @RequestBody ConsultaDTO dto) {
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(consultaService.atualizarConsulta(id, dto));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletarConsulta(
-            @PathVariable UUID id) {
-
-        consultaService.deletarConsulta(id);
-
-        return ResponseEntity.noContent().build();
     }
 }

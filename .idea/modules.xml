@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/airmed.iml" filepath="$PROJECT_DIR$/.idea/airmed.iml" />
+      <module fileurl="file://$PROJECT_DIR$/airmed/airmed.iml" filepath="$PROJECT_DIR$/airmed/airmed.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/airmed_at.iml" filepath="$PROJECT_DIR$/.idea/airmed_at.iml" />
     </modules>
   </component>
 </project>

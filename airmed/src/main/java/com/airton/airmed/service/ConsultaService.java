@@ -4,6 +4,7 @@ import com.airton.airmed.DTO.ConsultaDTO;
 import com.airton.airmed.model.Consulta;
 import com.airton.airmed.model.Medico;
 import com.airton.airmed.model.Paciente;
+import com.airton.airmed.model.StatusConsulta;
 import com.airton.airmed.repository.ConsultaRepository;
 import com.airton.airmed.repository.MedicoRepository;
 import com.airton.airmed.repository.PacienteRepository;
@@ -48,16 +49,12 @@ public class ConsultaService {
                 consulta.getMedico().getIdMedico());
 
         dto.setData(consulta.getData());
-        dto.setHorario(consulta.getHorario());
         dto.setObservacao(consulta.getObservacao());
-        dto.setStatus(consulta.getStatus());
+
 
         return dto;
     }
 
-    public List<Consulta> listarConsultas() {
-        return consultaRepository.findAll();
-    }
 
     public UUID cadastrarConsulta(ConsultaDTO dto) {
 
@@ -78,60 +75,16 @@ public class ConsultaService {
         consulta.setPaciente(paciente);
         consulta.setMedico(medico);
         consulta.setData(dto.getData());
-        consulta.setHorario(dto.getHorario());
         consulta.setObservacao(dto.getObservacao());
-        consulta.setStatus(dto.getStatus());
+
+        consulta.setStatus(dto.getStatus() != null ? dto.getStatus() : StatusConsulta.AGENDADA
+        );
+
 
         consultaRepository.save(consulta);
 
         return consulta.getIdConsulta();
     }
 
-    public ConsultaDTO buscarConsultaPorId(UUID id) {
 
-        Consulta consulta = consultaRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND));
-
-        return converterParaResponseDTO(consulta);
-    }
-
-    public UUID atualizarConsulta(UUID id, ConsultaDTO dto) {
-
-        Consulta consulta = consultaRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND));
-
-        Paciente paciente = pacienteRepository
-                .findById(dto.getIdPaciente())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Paciente não encontrado"));
-
-        Medico medico = medicoRepository
-                .findById(dto.getIdMedico())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Médico não encontrado"));
-
-        consulta.setPaciente(paciente);
-        consulta.setMedico(medico);
-        consulta.setData(dto.getData());
-        consulta.setHorario(dto.getHorario());
-        consulta.setObservacao(dto.getObservacao());
-        consulta.setStatus(dto.getStatus());
-
-        consultaRepository.save(consulta);
-
-        return consulta.getIdConsulta();
-    }
-
-    public void deletarConsulta(UUID id) {
-
-        Consulta consulta = consultaRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND));
-
-        consultaRepository.delete(consulta);
-    }
 }

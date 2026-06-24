@@ -30,9 +30,6 @@ public class MedicoService {
         dto.setNome(medico.getNome());
         dto.setCrm(medico.getCrm());
         dto.setEspecialidade(medico.getEspecialidade());
-        dto.setTelefone(medico.getTelefone());
-        dto.setEmail(medico.getEmail());
-
         return dto;
     }
 
@@ -44,16 +41,6 @@ public class MedicoService {
                 .toList();
     }
 
-    public MedicoDTO buscarMedicoPorId(UUID id) {
-
-        Medico medico = medicoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Médico não encontrado"
-                ));
-
-        return converterParaResponseDTO(medico);
-    }
 
     public UUID cadastrarMedico(MedicoDTO dto) {
 
@@ -69,41 +56,11 @@ public class MedicoService {
         medico.setNome(dto.getNome());
         medico.setCrm(dto.getCrm());
         medico.setEspecialidade(dto.getEspecialidade());
-        medico.setTelefone(dto.getTelefone());
-        medico.setEmail(dto.getEmail());
 
         medicoRepository.save(medico);
 
         return medico.getIdMedico();
     }
 
-    public UUID atualizarMedico(UUID id, MedicoDTO dto) {
 
-        Medico medico = medicoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Médico não encontrado"
-                ));
-
-        medico.setNome(dto.getNome());
-        medico.setCrm(dto.getCrm());
-        medico.setEspecialidade(dto.getEspecialidade());
-        medico.setTelefone(dto.getTelefone());
-        medico.setEmail(dto.getEmail());
-
-        medicoRepository.save(medico);
-
-        return medico.getIdMedico();
-    }
-
-    public void deletarMedico(UUID id) {
-
-        Medico medico = medicoRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Médico não encontrado"
-                ));
-
-        medicoRepository.delete(medico);
-    }
 }

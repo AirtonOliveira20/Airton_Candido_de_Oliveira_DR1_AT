@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,15 +22,14 @@ public class PacienteController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> listarPacientes() {
+    public ResponseEntity<List<PacienteDTO>> listarPacientes() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(pacienteService.listarPacientes());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> buscarPacientePorId(
-            @PathVariable UUID id) {
+    public ResponseEntity<PacienteDTO> buscarPacientePorId(@PathVariable UUID id) {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -37,8 +37,7 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> cadastrarPaciente(
-            @RequestBody PacienteDTO dto) {
+    public ResponseEntity<UUID> cadastrarPaciente(@RequestBody PacienteDTO dto) {
 
         UUID id = pacienteService.cadastrarPaciente(dto);
 
@@ -48,9 +47,7 @@ public class PacienteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> atualizarPaciente(
-            @PathVariable UUID id,
-            @RequestBody PacienteDTO dto) {
+    public ResponseEntity<UUID> atualizarPaciente(@PathVariable UUID id, @RequestBody PacienteDTO dto) {
 
         return ResponseEntity
                 .status(HttpStatus.OK)

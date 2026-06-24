@@ -4,6 +4,7 @@ package com.airton.airmed.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -17,6 +18,12 @@ public class Medico {
     private String nome;
     private String crm;
     private String especialidade;
-    private String telefone;
-    private String email;
+
+    @OneToMany (mappedBy = "medico", cascade = CascadeType.ALL)
+    private List<Consulta> consultas;
+
+    @OneToMany (mappedBy = "medico", cascade = CascadeType.ALL)
+    private List<Internacao> internacoes;
+
+
 }

@@ -8,7 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -28,11 +28,13 @@ public class Paciente {
     private String cpf;
 
     private String telefone;
-    private String email;
-    private String endereco;
+
+    @OneToMany (mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<Consulta> consultas;
 
     @CreationTimestamp
     private LocalDateTime createAt;
+
 
 
 

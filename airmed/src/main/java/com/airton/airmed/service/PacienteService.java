@@ -25,21 +25,23 @@ public class PacienteService {
 
         PacienteDTO dto = new PacienteDTO();
 
-        dto.setId(paciente.getIdPaciente());
+        dto.setIdPaciente(paciente.getIdPaciente());
         dto.setNome(paciente.getNome());
         dto.setDataNascimento(paciente.getDataNascimento());
         dto.setCpf(paciente.getCpf());
         dto.setTelefone(paciente.getTelefone());
-        dto.setEmail(paciente.getEmail());
-        dto.setEndereco(paciente.getEndereco());
+
 
 
         return dto;
     }
 
 
-    public List<Paciente> listarPacientes() {
-        return pacienteRepository.findAll();
+    public List<PacienteDTO> listarPacientes() {
+        return pacienteRepository.findAll()
+                .stream()
+                .map(this::converterParaResponseDTO)
+                .toList();
     }
 
     public UUID cadastrarPaciente(PacienteDTO dto){
@@ -57,8 +59,6 @@ public class PacienteService {
         paciente.setDataNascimento(dto.getDataNascimento());
         paciente.setCpf(dto.getCpf());
         paciente.setTelefone(dto.getTelefone());
-        paciente.setEmail(dto.getEmail());
-        paciente.setEndereco(dto.getEndereco());
 
 
         this.pacienteRepository.save(paciente);
@@ -86,8 +86,7 @@ public class PacienteService {
         paciente.setDataNascimento(dto.getDataNascimento());
         paciente.setCpf(dto.getCpf());
         paciente.setTelefone(dto.getTelefone());
-        paciente.setEmail(dto.getEmail());
-        paciente.setEndereco(dto.getEndereco());
+
 
         pacienteRepository.save(paciente);
 
