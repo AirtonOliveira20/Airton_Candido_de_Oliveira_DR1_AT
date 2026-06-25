@@ -57,9 +57,9 @@ public class MedicoService {
         medico.setCrm(dto.getCrm());
         medico.setEspecialidade(dto.getEspecialidade());
 
-        medicoRepository.save(medico);
+        Medico medicoSalvo = medicoRepository.save(medico);
 
-        return medico.getIdMedico();
+        return medicoSalvo.getIdMedico();
     }
 
 

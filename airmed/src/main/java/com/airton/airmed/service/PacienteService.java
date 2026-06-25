@@ -61,9 +61,9 @@ public class PacienteService {
         paciente.setTelefone(dto.getTelefone());
 
 
-        this.pacienteRepository.save(paciente);
+        Paciente pacienteSalvo = pacienteRepository.save(paciente);
 
-        return paciente.getIdPaciente();
+        return pacienteSalvo.getIdPaciente();
     }
 
     public PacienteDTO buscarPacientePorId(UUID id) {
