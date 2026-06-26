@@ -1,5 +1,5 @@
 # Build (stage): compila o porjeto usando Maven + JDK
-FROM maven:4.0-eclipse-temurin-21 AS builder
+FROM maven:3.9.16-eclipse-temurin-21 AS builder
 
 #Diretório de trabalho dentro do container
 WORKDIR /app
