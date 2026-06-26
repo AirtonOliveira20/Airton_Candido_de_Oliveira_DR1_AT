@@ -1,4 +1,4 @@
-package com.airton.airmed.unitarios;
+package com.airton.airmed.services;
 
 import com.airton.airmed.DTO.MedicoDTO;
 import com.airton.airmed.model.Medico;

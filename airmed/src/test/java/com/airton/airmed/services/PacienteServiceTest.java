@@ -1,4 +1,4 @@
-package com.airton.airmed.unitarios;
+package com.airton.airmed.services;
 
 import com.airton.airmed.DTO.PacienteDTO;
 import com.airton.airmed.model.Paciente;
@@ -66,10 +66,10 @@ public class PacienteServiceTest {
 
         when(pacienteRepository.save(any(Paciente.class))).thenReturn(pacienteSalvo);
 
-        UUID resultado = pacienteService.cadastrarPaciente(dto);
+        PacienteDTO resultado = pacienteService.cadastrarPaciente(dto);
 
         assertNotNull(resultado);
-        assertEquals(pacienteSalvo.getIdPaciente(), resultado);
+        assertEquals(pacienteSalvo.getIdPaciente(), resultado.getIdPaciente());
 
         verify(pacienteRepository, times(1)).save(any(Paciente.class));
     }

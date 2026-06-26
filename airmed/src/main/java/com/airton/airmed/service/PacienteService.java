@@ -31,8 +31,6 @@ public class PacienteService {
         dto.setCpf(paciente.getCpf());
         dto.setTelefone(paciente.getTelefone());
 
-
-
         return dto;
     }
 
@@ -44,7 +42,7 @@ public class PacienteService {
                 .toList();
     }
 
-    public UUID cadastrarPaciente(PacienteDTO dto){
+    public PacienteDTO cadastrarPaciente(PacienteDTO dto){
 
         if (pacienteRepository.existsByCpf(dto.getCpf())) {
             throw new ResponseStatusException(
@@ -63,7 +61,7 @@ public class PacienteService {
 
         Paciente pacienteSalvo = pacienteRepository.save(paciente);
 
-        return pacienteSalvo.getIdPaciente();
+        return converterParaResponseDTO(pacienteSalvo);
     }
 
     public PacienteDTO buscarPacientePorId(UUID id) {

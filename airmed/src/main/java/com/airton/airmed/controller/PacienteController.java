@@ -37,13 +37,13 @@ public class PacienteController {
     }
 
     @PostMapping
-    public ResponseEntity<UUID> cadastrarPaciente(@RequestBody PacienteDTO dto) {
+    public ResponseEntity<PacienteDTO> cadastrarPaciente(@RequestBody PacienteDTO dto) {
 
-        UUID id = pacienteService.cadastrarPaciente(dto);
+        PacienteDTO pacienteCriado = pacienteService.cadastrarPaciente(dto);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(id);
+                .body(pacienteCriado);
     }
 
     @PutMapping("/{id}")

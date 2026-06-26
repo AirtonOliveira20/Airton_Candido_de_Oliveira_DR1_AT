@@ -8,25 +8,31 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 
 @SpringBootApplication
-@RequiredArgsConstructor
-public class AirmedApplication implements CommandLineRunner {
+public class AirmedApplication{
 
-    private final MedicoRepository medicoRepository;
-    private final PacienteRepository pacienteRepository;
 
 	public static void main(String[] args)  {
 		SpringApplication.run(AirmedApplication.class, args);
 	}
 
-    @Override
-    public void run(String... args) throws Exception {
-        inserirMedicos();
-        inserirPacientes();
+    @Bean
+    @Profile("!test")
+    public CommandLineRunner carregarDadosIniciais(
+            MedicoRepository medicoRepository,
+            PacienteRepository pacienteRepository
+    ) {
+        return args -> {
+            inserirMedicos(medicoRepository);
+            inserirPacientes(pacienteRepository);
+        };
     }
 
-    private void inserirMedicos() {
+
+    private void inserirMedicos( MedicoRepository medicoRepository) {
 
         if (medicoRepository.count() == 0) {
 
@@ -43,7 +49,7 @@ public class AirmedApplication implements CommandLineRunner {
         }
     }
 
-    private void inserirPacientes() {
+    private void inserirPacientes( PacienteRepository pacienteRepository) {
 
         if (pacienteRepository.count() == 0) {
 
